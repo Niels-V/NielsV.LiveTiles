@@ -1,0 +1,19 @@
+﻿@using NielsV.LiveTiles.Models;
+@model LiveTilesSettingsPart
+TEST
+<fieldset>
+    <legend>@T("LiveTiles")</legend>
+    <div>
+        <label for="SmallTileUrl">@T("Small Tile URL")</label>
+        @Html.TextBoxFor(m => m.SmallTileUrl, new { @class = "textMedium" })
+        @if (!String.IsNullOrWhiteSpace(Model.SmallTileUrl))
+        {
+            <img src="@Model.SmallTileUrl" alt="The current small tile" />
+        }
+        @Html.ValidationMessage("SmallTileUrl", "*")
+        
+    </div>
+    <div>
+
+    </div>
+</fieldset>

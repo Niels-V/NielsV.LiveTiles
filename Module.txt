@@ -1,0 +1,11 @@
+﻿Name: NielsV.LiveTiles
+AntiForgery: enabled
+Author: NielsV
+Website: http://www.nielsvrolijk.nl
+Version: 1.0
+OrchardVersion: 1.8
+Description:  simple module to add live tiles to our website.
+Features:
+    NielsV.LiveTiles:
+        Description: A simple module to add live tiles to your website.
+		Dependencies: Orchard.MediaLibrary, Settings
