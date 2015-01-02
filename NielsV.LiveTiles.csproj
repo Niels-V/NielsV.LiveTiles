@@ -76,6 +76,34 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Placement.info" />
+    <Content Include="Styles\colorpicker.css" />
+    <Content Include="Styles\images\blank.gif" />
+    <Content Include="Styles\images\colorpicker_background.png" />
+    <Content Include="Styles\images\colorpicker_hex.png" />
+    <Content Include="Styles\images\colorpicker_hsb_b.png" />
+    <Content Include="Styles\images\colorpicker_hsb_h.png" />
+    <Content Include="Styles\images\colorpicker_hsb_s.png" />
+    <Content Include="Styles\images\colorpicker_indic.gif" />
+    <Content Include="Styles\images\colorpicker_overlay.png" />
+    <Content Include="Styles\images\colorpicker_rgb_b.png" />
+    <Content Include="Styles\images\colorpicker_rgb_g.png" />
+    <Content Include="Styles\images\colorpicker_rgb_r.png" />
+    <Content Include="Styles\images\colorpicker_select.gif" />
+    <Content Include="Styles\images\colorpicker_submit.png" />
+    <Content Include="Styles\images\custom_background.png" />
+    <Content Include="Styles\images\custom_hex.png" />
+    <Content Include="Styles\images\custom_hsb_b.png" />
+    <Content Include="Styles\images\custom_hsb_h.png" />
+    <Content Include="Styles\images\custom_hsb_s.png" />
+    <Content Include="Styles\images\custom_indic.gif" />
+    <Content Include="Styles\images\custom_rgb_b.png" />
+    <Content Include="Styles\images\custom_rgb_g.png" />
+    <Content Include="Styles\images\custom_rgb_r.png" />
+    <Content Include="Styles\images\custom_submit.png" />
+    <Content Include="Styles\images\select.png" />
+    <Content Include="Styles\images\select2.png" />
+    <Content Include="Styles\images\slider.png" />
+    <Content Include="Scripts\colorpicker.js" />
     <Content Include="Web.config" />
     <Content Include="Properties\AssemblyInfo.cs" />
     <Content Include="Module.txt" />
@@ -109,6 +137,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\EditorTemplates\Parts\LiveTiles.LiveTilesSettings.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Styles\Web.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
