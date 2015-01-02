@@ -16,7 +16,7 @@
             $('#LiveTilesSettings_TileColor').ColorPicker({
                 onSubmit: function(hsb, hex, rgb, el) {
                     $(el).val(hex);
-                    $('#tileColorExample').css('background-color', '#'+hex);
+                    $('.tileColorExample').css('background-color', '#'+hex);
                     $(el).ColorPickerHide();
                 },
                 onBeforeShow: function () {
@@ -25,10 +25,13 @@
             })
             .bind('keyup', function(){
                 $(this).ColorPickerSetColor(this.value);
+                $('.tileColorExample').css('background-color', '#' + this.value);
+
             });
                 
 
-            $("#PickImageUrl").click(function () {
+            $(".PickImageUrl").click(function () {
+                var currentButton = $(this);
                 var adminIndex = location.href.toLowerCase().indexOf("/admin/");
                 if (adminIndex === -1) return;
                 var url = location.href.substr(0, adminIndex) + "/Admin/Orchard.MediaLibrary?dialog=true";
@@ -54,19 +57,8 @@
                         var newContent = '';
                         console.debug('returned', selectedData);
                         if (selectedData.length == 1) {
-                            $('#SmallTitleImg').attr('src',selectedData[0].resource);
-                            $('#LiveTilesSettings_SmallTileUrl').val(selectedData[0].resource);
-                        }
-                        for (var i = 0; i < selectedData.length; i++) {
-                            //var renderMedia = location.href.substr(0, adminIndex) + "/Admin/Orchard.MediaLibrary/MediaItem/" + selectedData[i].id + "?displayType=Raw";
-                            //$.ajax({
-                            //    async: false,
-                            //    type: 'GET',
-                            //    url: renderMedia,
-                            //    success: function (data) {
-                            //        newContent += data;
-                            //    }
-                            //});
+                            currentButton.parent().find('.imageSource').attr('src',selectedData[0].resource);
+                            currentButton.parent().find('.imageUrl').val(selectedData[0].resource);
                         }
                     }
                 });
@@ -79,18 +71,73 @@
 <fieldset>
     <legend>@T("LiveTiles")</legend>
     <div>
-        <label for="SmallTileUrl">@T("Small Tile URL")</label>
-        @Html.TextBoxFor(m => m.SmallTileUrl, new { @class = "textMedium" })
-        <input type="button" class="button" id="PickImageUrl" value="Pick Image" />
+        <label for="LiveTilesSettings_SmallTileUrl">@T("Small Tile URL")</label>
+        @Html.TextBoxFor(m => m.SmallTileUrl, new { @class = "textMedium imageUrl" })
+        <input type="button" class="button PickImageUrl" value="Pick Image" />
         @if (!String.IsNullOrWhiteSpace(Model.SmallTileUrl))
         {
-            <img src="@Model.SmallTileUrl" alt="The current small tile" id="SmallTitleImg" />
+            <div style="display:inline-block;width:70px;height:70px; overflow:hidden;">
+                <img src="@Model.SmallTileUrl" alt="The current small tile" id="SmallTitleImg" class="imageSource tileColorExample" style="height:100%;width: auto;" />
+            </div>
         }
         @Html.ValidationMessage("SmallTileUrl", "*")
         
     </div>
     <div>
-        @Html.TextBoxFor(m => m.TileColor, new { @class = "textMedium" })
-        <div style="display:inline-block; width: 2em; height: 1.2em;" id="tileColorExample" >&nbsp;</div>
+        <label for="LiveTilesSettings_MediumTileUrl">@T("Medium Tile URL")</label>
+        @Html.TextBoxFor(m => m.MediumTileUrl, new { @class = "textMedium imageUrl" })
+        <input type="button" class="button PickImageUrl" value="Pick Image" />
+        @if (!String.IsNullOrWhiteSpace(Model.MediumTileUrl))
+        {
+            <div style="display:inline-block;width:150px;height:150px; overflow:hidden;">
+                <img src="@Model.MediumTileUrl" alt="The current Medium tile" id="MediumTitleImg" class="imageSource tileColorExample" style="height:100%;width: auto;" />
+            </div>
+        }
+        @Html.ValidationMessage("MediumTileUrl", "*")
+
+            </div>
+    <div>
+        <label for="LiveTilesSettings_LargeTileUrl">@T("Large Tile URL")</label>
+        @Html.TextBoxFor(m => m.LargeTileUrl, new { @class = "textMedium imageUrl" })
+        <input type="button" class="button PickImageUrl" value="Pick Image" />
+                @if (!String.IsNullOrWhiteSpace(Model.LargeTileUrl))
+        {
+            <div style="display:inline-block;width:310px;height:310px; overflow:hidden;">
+                <img src="@Model.LargeTileUrl" alt="The current Large tile" id="LargeTitleImg" class="imageSource tileColorExample" style="height:100%;width: auto;" />
+            </div>
+        }
+        @Html.ValidationMessage("LargeTileUrl", "*")
+
     </div>
+    <div>
+        <label for="LiveTilesSettings_WideTileUrl">@T("Wide Tile URL")</label>
+        @Html.TextBoxFor(m => m.WideTileUrl, new { @class = "textMedium imageUrl" })
+        <input type="button" class="button PickImageUrl" value="Pick Image" />
+                @if (!String.IsNullOrWhiteSpace(Model.WideTileUrl))
+        {
+            <div style="display:inline-block;width:310px;height:150px; overflow:hidden;">
+                <img src="@Model.WideTileUrl" alt="The current Wide tile" id="WideTitleImg" class="imageSource tileColorExample" style="height:100%;width: auto;" />
+            </div>
+        }
+        @Html.ValidationMessage("WideTileUrl", "*")
+
+    </div>
+    <div>
+        <label for="LiveTilesSettings_TileColor">@T("Tile Color")</label>
+        @Html.TextBoxFor(m => m.TileColor, new { @class = "textMedium" })
+        <div style="display:inline-block; width: 2em; height: 1.2em;" class="tileColorExample" >&nbsp;</div>
+        @if (!String.IsNullOrWhiteSpace(Model.TileColor))
+        {
+            using (Script.Foot())
+            {
+                <script type="text/javascript">
+                    //<![CDATA[
+                    jQuery(function ($) {
+                        $('.tileColorExample').css('background-color', '#@Model.TileColor ');
+                    });
+                    //]]>
+                </script>
+            }
+        }
+        </div>
 </fieldset>

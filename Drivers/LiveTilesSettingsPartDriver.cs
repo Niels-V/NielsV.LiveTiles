@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using NielsV.LiveTiles.Models;
 using NielsV.LiveTiles.Services;
-using NielsV.LiveTiles.ViewModels;
 using Orchard;
 using Orchard.Caching;
 using Orchard.ContentManagement;

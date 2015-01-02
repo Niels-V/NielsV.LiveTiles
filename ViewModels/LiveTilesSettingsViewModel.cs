@@ -10,5 +10,9 @@ namespace NielsV.LiveTiles.ViewModels
         public string TileColor { get; set; }
 
         public string SmallTileUrl { get; set; }
+
+        public string MediumTileUrl { get; set; }
+        public string LargeTileUrl { get; set; }
+        public string WideTileUrl { get; set; }
     }
 }

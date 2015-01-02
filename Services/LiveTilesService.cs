@@ -59,10 +59,16 @@ namespace NielsV.LiveTiles.Services
                 ctx => {
                     ctx.Monitor(_signals.When("NielsV.LiveTiles.Changed"));
                     var liveTilesSettings = _services.WorkContext.CurrentSite.As<LiveTilesSettingsPart>();
-                    switch (format)
+                    switch (format) 
                     {
                         case LiveTileType.Small:
                             return liveTilesSettings.SmallTileUrl;
+                        case LiveTileType.Medium:
+                            return liveTilesSettings.MediumTileUrl;
+                        case LiveTileType.Large:
+                            return liveTilesSettings.LargeTileUrl;
+                        case LiveTileType.Wide:
+                            return liveTilesSettings.WideTileUrl;
                         default:
                             return null;
                     }
@@ -107,7 +113,7 @@ namespace NielsV.LiveTiles.Services
              var liveTileColor = GetLiveTileColor();
              if (!string.IsNullOrEmpty(liveTileColor))
              {
-                 tileElement.Add(new XElement("TileColor", liveTileColor));
+                 tileElement.Add(new XElement("TileColor", "#"+liveTileColor));
              }
 
              return document; 
