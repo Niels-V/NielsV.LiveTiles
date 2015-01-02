@@ -1,19 +1,96 @@
 ﻿@using NielsV.LiveTiles.Models;
 @model LiveTilesSettingsPart
-TEST
+@{
+    Script.Require("jQuery").AtFoot();
+    Style.Include("media-library-picker-admin.css");
+    Script.Require("jQueryColorBox").AtFoot();
+    Style.Require("jQueryColorBox");
+    Style.Include("colorpicker.css");
+    Script.Include("colorpicker.js").AtFoot();
+}
+@using (Script.Foot())
+{
+    <script type="text/javascript">
+        //<![CDATA[
+        jQuery(function ($) {
+            $('#LiveTilesSettings_TileColor').ColorPicker({
+                onSubmit: function(hsb, hex, rgb, el) {
+                    $(el).val(hex);
+                    $('#tileColorExample').css('background-color', '#'+hex);
+                    $(el).ColorPickerHide();
+                },
+                onBeforeShow: function () {
+                    $(this).ColorPickerSetColor(this.value);
+                }
+            })
+            .bind('keyup', function(){
+                $(this).ColorPickerSetColor(this.value);
+            });
+                
+
+            $("#PickImageUrl").click(function () {
+                var adminIndex = location.href.toLowerCase().indexOf("/admin/");
+                if (adminIndex === -1) return;
+                var url = location.href.substr(0, adminIndex) + "/Admin/Orchard.MediaLibrary?dialog=true";
+                $.colorbox({
+                    href: url,
+                    iframe: true,
+                    reposition: true,
+                    width: "90%",
+                    height: "90%",
+                    onLoad: function () {
+                        // hide the scrollbars from the main window
+                        $('html, body').css('overflow', 'hidden');
+                        //$('#cboxClose').remove();
+                    },
+                    onClosed: function () {
+                        $('html, body').css('overflow', '');
+
+                        var selectedData = $.colorbox.selectedData;
+
+                        if (selectedData == null) // Dialog cancelled, do nothing
+                            return;
+
+                        var newContent = '';
+                        console.debug('returned', selectedData);
+                        if (selectedData.length == 1) {
+                            $('#SmallTitleImg').attr('src',selectedData[0].resource);
+                            $('#LiveTilesSettings_SmallTileUrl').val(selectedData[0].resource);
+                        }
+                        for (var i = 0; i < selectedData.length; i++) {
+                            //var renderMedia = location.href.substr(0, adminIndex) + "/Admin/Orchard.MediaLibrary/MediaItem/" + selectedData[i].id + "?displayType=Raw";
+                            //$.ajax({
+                            //    async: false,
+                            //    type: 'GET',
+                            //    url: renderMedia,
+                            //    success: function (data) {
+                            //        newContent += data;
+                            //    }
+                            //});
+                        }
+                    }
+                });
+
+            });
+        });
+        //]]>
+    </script>
+}
 <fieldset>
     <legend>@T("LiveTiles")</legend>
     <div>
         <label for="SmallTileUrl">@T("Small Tile URL")</label>
         @Html.TextBoxFor(m => m.SmallTileUrl, new { @class = "textMedium" })
+        <input type="button" class="button" id="PickImageUrl" value="Pick Image" />
         @if (!String.IsNullOrWhiteSpace(Model.SmallTileUrl))
         {
-            <img src="@Model.SmallTileUrl" alt="The current small tile" />
+            <img src="@Model.SmallTileUrl" alt="The current small tile" id="SmallTitleImg" />
         }
         @Html.ValidationMessage("SmallTileUrl", "*")
         
     </div>
     <div>
-
+        @Html.TextBoxFor(m => m.TileColor, new { @class = "textMedium" })
+        <div style="display:inline-block; width: 2em; height: 1.2em;" id="tileColorExample" >&nbsp;</div>
     </div>
 </fieldset>
