@@ -8,4 +8,5 @@ Description:  simple module to add live tiles to our website.
 Features:
     NielsV.LiveTiles:
         Description: A simple module to add live tiles to your website.
+		Category: Content
 		Dependencies: Orchard.MediaLibrary, Settings
